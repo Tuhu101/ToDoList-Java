@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ToDoList</string>
+
+    <string-array name="my_list">
+        <item>Item 1</item>
+        <item>Item 2</item>
+        <item>Item 3</item>
+        <!-- Add more items as needed -->
+    </string-array>
+
+
+</resources>
