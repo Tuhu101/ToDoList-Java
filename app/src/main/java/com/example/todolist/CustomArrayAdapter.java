@@ -75,9 +75,11 @@ public class CustomArrayAdapter extends ArrayAdapter<String> {
         // Handle checkbox click events
         viewHolder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             // Update your data model accordingly
-            isCheckedList.set(position, isChecked);
-            // Save the updated state to SharedPreferences
-            saveCheckboxStates(isCheckedList);
+            if (!isCheckedList.isEmpty() && position < isCheckedList.size()) {
+                isCheckedList.set(position, isChecked);
+                // Save the updated state to SharedPreferences
+                saveCheckboxStates(isCheckedList);
+            }
         });
 
         return convertView;
