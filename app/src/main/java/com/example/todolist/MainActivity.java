@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,7 +140,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void addItem(String newItem) {
         itemList.add(newItem);
-        adapter.notifyDataSetChanged();
+
+        // Access the isCheckedList from your adapter
+        if (adapter instanceof CustomArrayAdapter) {
+            CustomArrayAdapter customAdapter = (CustomArrayAdapter) adapter;
+            List<Boolean> currentCheckedList = customAdapter.getIsCheckedList();
+            currentCheckedList.add(false); // Assuming the default state is false
+
+            // Update the isCheckedList in the adapter
+            customAdapter.updateIsCheckedList(currentCheckedList);
+        }
+
         saveItems(itemList);
     }
 

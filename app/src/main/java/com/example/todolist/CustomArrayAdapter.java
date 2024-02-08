@@ -33,6 +33,16 @@ public class CustomArrayAdapter extends ArrayAdapter<String> {
         isCheckedList = loadCheckboxStates();
     }
 
+    public List<Boolean> getIsCheckedList() {
+        return isCheckedList;
+    }
+
+    public void updateIsCheckedList(List<Boolean> newList) {
+        isCheckedList.clear();
+        isCheckedList.addAll(newList);
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -54,8 +64,13 @@ public class CustomArrayAdapter extends ArrayAdapter<String> {
             viewHolder.itemTextView.setText(currentItem);
         }
 
-        // Set the checkbox state based on your data model
-        viewHolder.checkBox.setChecked(isCheckedList.get(position));
+       /* // Set the checkbox state based on your data model
+        viewHolder.checkBox.setChecked(isCheckedList.get(position));*/
+
+        // Ensure that isCheckedList is not empty before accessing it
+        if (!isCheckedList.isEmpty() && position < isCheckedList.size()) {
+            viewHolder.checkBox.setChecked(isCheckedList.get(position));
+        }
 
         // Handle checkbox click events
         viewHolder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -67,6 +82,10 @@ public class CustomArrayAdapter extends ArrayAdapter<String> {
 
         return convertView;
     }
+
+
+
+
 
     private static class ViewHolder {
         CheckBox checkBox;
